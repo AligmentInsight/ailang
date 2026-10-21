@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ailang"
+version = "0.38.0"
+description = "Aligment Insight: a programming language where every value is an AI agent"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = ["lark>=1.0"]
+keywords = ["llm", "agents", "dsl", "language", "offline", "ai"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Interpreters",
+    "Typing :: Typed",
+]
+
+[project.scripts]
+ailang = "ailang:main"
+
+[project.optional-dependencies]
+dev = ["pyinstaller", "build", "twine"]
+
+[tool.setuptools]
+py-modules = ["ailang"]
+
+[tool.setuptools.package-data]
+"*" = ["*.ai", "*.md", "*.diff", "*.txt"]

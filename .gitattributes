@@ -1,0 +1,14 @@
+# Text detection for everything, and LF in the working tree: the project is
+# developed on Windows and tested on Linux, and selftest check 79 rejects CRLF.
+* text=auto eol=lf
+
+*.ai     text eol=lf
+*.py     text eol=lf
+*.lark   text eol=lf
+*.md     text eol=lf
+*.toml   text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+*.diff   text eol=lf
+
+# Binary assets need no rule: `* text=auto` already detects them.

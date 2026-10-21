@@ -1,0 +1,24 @@
+# corpus 2 — semantic gates: deterministic, hybrid and nested fields
+
+schema Note { txt: str  score: int }
+schema Wrap { note: Note  ok: bool }
+mk = Agent {
+    model: "gpt-4o"
+    role: "note maker"
+    out: Note
+}
+wrap = Agent {
+    model: "gpt-4o"
+    role: "wrapper"
+    out: Wrap
+}
+qa = Agent {
+    model: "gpt-4o"
+    role: "auditor"
+}
+safe = "topic" >> mk >> qa? score >= 0
+sharp = "topic" >> mk >> qa? "reads well" and score < 100
+nested = "topic" >> wrap >> qa? note.score >= 0
+print safe
+print sharp
+print nested

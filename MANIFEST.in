@@ -1,0 +1,21 @@
+include LICENSE
+include README.md
+include CHANGELOG.md
+include CONTRIBUTING.md
+include PLUGINS.md
+include PROPOSALS.md
+include RELEASE.md
+include GOVERNANCE.md
+include build_exe.md
+include .gitattributes
+
+recursive-include examples *.ai *.diff *.md *.txt
+recursive-include corpus *.ai
+recursive-include agents *.py
+recursive-include plugins *.py
+recursive-include tests *.ai
+
+global-exclude *.py[cod]
+global-exclude __pycache__
+global-exclude *.bak
+global-exclude *.ailc

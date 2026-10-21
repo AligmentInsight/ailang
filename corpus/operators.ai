@@ -1,0 +1,16 @@
+# corpus 1 — the composing operators: >> & || ?? +
+
+a = Agent {
+    model: "gpt-4o"
+    role: "writer"
+}
+b = Agent {
+    model: "gpt-4o"
+    role: "editor"
+}
+team = a & b
+crowd = a || b
+rescue = a ?? b
+hybrid = a + b
+out = "the future of coffee" >> team
+print out

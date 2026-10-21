@@ -1,0 +1,45 @@
+# language.ai - deterministic checks over the core constructs.
+# Run with:  py ailang.py test
+
+schema N { v: int  tag: str }
+mk = Agent {
+    model: "x"
+    role: "maker"
+    out: N
+}
+n = "q" >> mk
+patch n { v: 7  tag: "ok" }
+assert n.v == 7
+assert n.tag == "ok"
+assert n.v > 3
+big = if n.v > 3 {
+    "big"
+} else {
+    "small"
+}
+small = if n.v < 3 {
+    "big"
+} else {
+    "small"
+}
+assert big == "big"
+assert small == "small"
+left = Agent {
+    model: "x"
+    role: "left"
+    out: N
+}
+right = Agent {
+    model: "x"
+    role: "right"
+    out: N
+}
+pair = "q" >> left || right
+assert pair.left.v == 0
+assert pair.right.v == 0
+both = if pair.left.v == 0 and pair.right.v == 0 {
+    "flat"
+} else {
+    "bumpy"
+}
+assert both == "flat"

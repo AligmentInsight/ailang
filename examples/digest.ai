@@ -1,0 +1,15 @@
+# digest.ai — a long document becomes a typed digest (out: contract).
+# A malformed answer triggers cast-repair: the violation is sent back
+# until the artifact validates. Runs offline in mock mode:
+#     py ailang.py run examples/digest.ai
+
+schema Digest { title: str  summary: str  risks: [str]  words: int }
+doc = file("examples/long_document.md")
+reader = Agent {
+    model: "gpt-4o"
+    role: "You read long documents and extract a typed digest."
+    out: Digest
+    temp: 0.2
+}
+digest = doc >> reader
+print digest

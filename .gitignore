@@ -1,0 +1,42 @@
+# Byte-compiled / caches
+__pycache__/
+pycache/
+*.py[cod]
+.pytest_cache/
+
+# Local environment
+.venv/
+venv/
+.env
+
+# Build output
+build/
+dist/
+*.egg-info/
+*.whl
+
+# Runtime artefacts
+*.ailc
+*.jsonl
+.ailang-cache/
+.ail-cache/
+.ailang_history
+result.txt
+e.ai
+
+# Backups and scratch
+*.bak
+*.bak*
+.bak
+_archive/
+._archive/
+fix*.py
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Workspace tooling
+.zwork/

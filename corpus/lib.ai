@@ -1,0 +1,6 @@
+# corpus library — imported by flows.ai
+
+helper = Agent {
+    model: "gpt-4o"
+    role: "library helper"
+}

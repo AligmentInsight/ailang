@@ -1,0 +1,5 @@
+# issues.txt — one issue per line, as exported by the tracker
+Crash when the config file has a BOM
+Docs: the install section still says pip install ailang==0.5
+Feature request: a --stream flag for run
+Windows: kind names with hyphens do not parse

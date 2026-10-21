@@ -1,0 +1,11 @@
+# corpus 4 — schemas, output contracts, patch
+
+schema Pitch { title: str  hook: str  words: int }
+muse = Agent {
+    model: "gpt-4o"
+    role: "idea generator"
+    out: Pitch
+}
+p = "AI-native coffee shops" >> muse
+patch p { words: 9 }
+print p

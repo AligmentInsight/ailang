@@ -1,0 +1,40 @@
+# examples/org_review.ai - one program, the whole organisation.
+# Runs offline in mock mode: no keys, no network, $0.
+
+schema Text { body: str }
+schema Dated { date: str }
+schema Summary { body: str  date: str }
+patch Summary { is_a: Text  is_a: Dated }
+schema Finding { title: str  severity: str }
+schema Report { summary: Summary  findings: [Finding]  verdict: str }
+researcher = Agent {
+    model: "mock"
+    role: "Researcher: collect three concrete facts about the change."
+    out: Text
+    budget: 0.01
+}
+analyst = Agent {
+    model: "mock"
+    role: "Analyst: compress the research into a dated summary."
+    in: Text
+    out: Summary
+    budget: 0.02
+}
+editor = Agent {
+    model: "mock"
+    role: "Editor: turn the summary into a report with findings."
+    in: Summary
+    out: Report
+    judge: qa
+    budget: 0.05
+    timeout: 30
+    casts: 2
+}
+qa = Agent {
+    model: "mock"
+    role: "QA: audit the report against the brief."
+}
+draft = "a pull request that touches billing" >> researcher
+digest = draft >> analyst
+audited = digest >> editor >> qa? verdict != "none"
+print audited

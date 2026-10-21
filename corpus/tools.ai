@@ -1,0 +1,11 @@
+# corpus 7 — tools: declaration, parsing, dry-run protocol
+
+tool now = py "time.time" params { }  desc "current unix time"
+tool len_of = py "builtins.len" params { s: str }  desc "length of a string"
+w = Agent {
+    model: "gpt-4o"
+    role: "helper"
+    tools: [len_of]
+}
+out = "hi there" >> w
+print out

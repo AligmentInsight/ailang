@@ -1,0 +1,21 @@
+# examples/standards.ai - the standards page, applied twice.
+# Runs offline in mock mode: no keys, no network, $0.
+
+schema Brief { topic: str  budget: float where budget >= 0 }
+schema Score { points: int where points >= 0  verdict: str where verdict != "" }
+gate has_topic = topic != ""
+gate priced = budget >= 0
+gate scored = points >= 0
+policy { model: "mock"  salary: 0.1  timeout: 30 }
+writer = Agent {
+    role: "Draft a one-paragraph brief."
+    out: Brief
+    salary: 0.5
+}
+critic = Agent {
+    role: "Score the brief."
+    out: Score
+}
+brief = "launch a coffee brand" >> writer >> critic? has_topic and priced
+scored = brief >> critic >> critic? scored
+print scored

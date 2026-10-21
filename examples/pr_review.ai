@@ -1,0 +1,35 @@
+# pr_review.ai — three personas review a diff in parallel, one lead
+# merges their verdicts, and a gate demands "no critical issues".
+# Runs fully offline in mock mode:
+#     py ailang.py run examples/pr_review.ai
+# Point model:/endpoint: at real reviewers for live use.
+
+schema Review { concerns: int  note: str }
+diff = file("examples/sample.diff")
+architect = Agent {
+    model: "gpt-4o"
+    role: "You review code as a systems architect: coupling, boundaries, scaling."
+    out: Review
+}
+security = Agent {
+    model: "claude-3-5-sonnet"
+    role: "You are a security reviewer: injection, secrets, authz, data leaks."
+    out: Review
+}
+editor = Agent {
+    model: "gpt-4o-mini"
+    role: "You are a merciless editor: naming, dead code, clarity."
+    out: Review
+}
+lead = Agent {
+    model: "gpt-4o"
+    role: "You merge three reviews into one prioritized verdict."
+    out: Review
+}
+gatekeeper = Agent {
+    model: "gpt-4o-mini"
+    role: "You are the release gatekeeper: you judge the merged verdict."
+}
+panel = architect || security || editor
+review = diff >> panel >> lead >> gatekeeper? "no critical issues" and concerns < 5
+print review

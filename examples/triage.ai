@@ -1,0 +1,42 @@
+# triage.ai — semantic router for support tickets with an escalation net.
+# The router picks a queue, the desk drafts the reply, and `??` hands the
+# ORIGINAL ticket to the human desk when the gate fails.
+# Runs offline (mock) by default; the endpoint below is a local Ollama.
+#     py ailang.py run examples/triage.ai
+#     py ailang.py check examples/triage.ai --offline
+
+router = Agent {
+    model: "llama3.1"
+    role: "You triage tickets into exactly one queue: billing, bug, howto."
+    endpoint: "http://localhost:11434/v1"
+}
+billing = Agent {
+    model: "llama3.1"
+    role: "You are the billing desk: refunds, duplicate charges, invoices."
+    endpoint: "http://localhost:11434/v1"
+}
+bugs = Agent {
+    model: "llama3.1"
+    role: "You are the bug desk: reproduce, isolate, suggest a workaround."
+    endpoint: "http://localhost:11434/v1"
+}
+howto = Agent {
+    model: "llama3.1"
+    role: "You are the how-to desk: short, concrete instructions."
+    endpoint: "http://localhost:11434/v1"
+}
+human_desk = Agent {
+    model: "llama3.1"
+    role: "You are the human escalation desk."
+    endpoint: "http://localhost:11434/v1"
+}
+ticket = "I was charged twice for the same month"
+desk = match router(ticket) {
+    "billing" >> billing
+    "bug" >> bugs
+    "howto" >> howto
+    _ >> human_desk
+}
+drafted = ticket >> billing? "polite and specific" ?? human_desk
+print desk
+print drafted

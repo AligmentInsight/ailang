@@ -1,0 +1,12 @@
+# corpus 6 — race: the fastest insight wins
+
+fast = Agent {
+    model: "gpt-4o-mini"
+    role: "fast take"
+}
+smart = Agent {
+    model: "claude-3-5-sonnet"
+    role: "careful take"
+}
+winner = "should we expand to Berlin?" >> race (fast || smart)
+print winner

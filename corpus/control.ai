@@ -1,0 +1,39 @@
+# corpus 3 — until / match (statement and expression) / if branching
+
+w = Agent {
+    model: "gpt-4o"
+    role: "worker"
+}
+q = Agent {
+    model: "gpt-4o"
+    role: "qa"
+}
+until q? "concise" max 3 {
+    m = "draft ${feedback}" >> w
+}
+rt = Agent {
+    model: "gpt-4o"
+    role: "router"
+}
+match rt("hello world") {
+    "first" >> w
+    _ >> w
+}
+desk = match rt("hello world") {
+    "first" >> w
+    _ >> q
+}
+print desk
+schema Flag { ok: bool }
+flagged = Agent {
+    model: "gpt-4o"
+    role: "flag maker"
+    out: Flag
+}
+f = "hello world" >> flagged
+branch = if f.ok == true {
+    "left" >> w
+} else {
+    "right" >> q
+}
+print branch

@@ -1,0 +1,34 @@
+# pipeline.ai - flows, gates and escalation, all deterministic in mock.
+
+schema Review { concerns: int  note: str }
+audit = Agent {
+    model: "x"
+    role: "auditor"
+    out: Review
+}
+writer = Agent {
+    model: "x"
+    role: "writer"
+    out: Review
+}
+checker = Agent {
+    model: "x"
+    role: "gate"
+}
+report = "topic" >> writer
+checked = "topic" >> writer >> checker? concerns >= 0
+assert checked.concerns == 0
+strict = "topic" >> writer >> checker? concerns >= 0 and concerns < 5
+assert strict.note == "example"
+desk = Agent {
+    model: "x"
+    role: "desk"
+}
+rescue = Agent {
+    model: "x"
+    role: "rescue"
+}
+safe = "task" >> writer? concerns >= 0 ?? desk
+assert safe.concerns == 0
+fallback = "task" >> writer? concerns > 99 ?? rescue
+assert fallback != ""

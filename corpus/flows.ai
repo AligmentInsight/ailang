@@ -1,0 +1,18 @@
+# corpus 5 — flow declarations, .ai libraries, the py kind
+
+use "corpus/lib.ai"
+w = Agent {
+    model: "gpt-4o"
+    role: "polisher"
+}
+enc = Agent {
+    kind: py
+    run: "json.dumps"
+}
+flow polish(input) {
+    input >> w
+}
+r = polish("hello")
+e = "abc" >> enc
+print r
+print e

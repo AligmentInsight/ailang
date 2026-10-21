@@ -1,0 +1,15 @@
+--- a/api/users.py
++++ b/api/users.py
+@@ -18,9 +18,18 @@
+-def get_user(uid):
+-    return db.fetch("SELECT * FROM users WHERE id = " + uid)
++def get_user(uid: str) -> dict:
++    """Fetch one user by id. Ids are validated before the query."""
++    if not uid.isdigit():
++        raise ValueError("uid must be numeric")
++    row = db.fetch("SELECT * FROM users WHERE id = ?", (uid,))
++    return dict(row)
++
++
++def get_user_email(uid: str) -> str:
++    return get_user(uid).get("email", "")

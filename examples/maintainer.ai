@@ -1,0 +1,20 @@
+# maintainer.ai — reads issues.txt and drafts replies in the maintainer's
+# voice. Fully offline: a deterministic py agent reads the file, mock
+# personas draft and tighten.
+#     py ailang.py run examples/maintainer.ai
+
+splitter = Agent {
+    kind: py
+    run: "examples.issues_tool.read_lines"
+}
+maintainer = Agent {
+    model: "gpt-4o"
+    role: "You are the project maintainer: warm, brief, concrete."
+}
+editor = Agent {
+    model: "claude-3-5-sonnet"
+    role: "You tighten drafts without losing warmth."
+}
+issues = "examples/issues.txt" >> splitter
+drafts = issues >> maintainer >> editor
+print drafts
