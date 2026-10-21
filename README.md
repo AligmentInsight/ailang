@@ -1,7 +1,4 @@
 # Alignment Family
-Aligment Insight is a programming language where every value is an AI agent —
-schemas, wages, budgets, gates and journals for organizations of agents.
-This is the first public release: one file, one dependency, runs offline.
 
 [![ci](https://github.com/AligmentInsight/ailang/actions/workflows/ci.yml/badge.svg)](https://github.com/AligmentInsight/ailang/actions/workflows/ci.yml)
 
@@ -14,7 +11,7 @@ is a wage, `judge` is a supervisor, gates are quality control and `payroll`
 is the wage bill. The package and the command are called `ailang`; the
 language is Aligment Insight. One file (`ailang.py`), one dependency
 (`lark`), and a fully offline mock mode by default: no keys, no network,
-no spend.
+no spend.![A run of `ailang demo` — an agent organization, offline](docs/screenshot-demo.png)
 
 The Family today is the language and its household: the AI-lang shell, the
 compiler with its AIL diagnostics and program images, the journal that
