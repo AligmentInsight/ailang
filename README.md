@@ -1,4 +1,7 @@
 # Alignment Family
+Aligment Insight is a programming language where every value is an AI agent —
+schemas, wages, budgets, gates and journals for organizations of agents.
+This is the first public release: one file, one dependency, runs offline.
 
 [![ci](https://github.com/AligmentInsight/ailang/actions/workflows/ci.yml/badge.svg)](https://github.com/AligmentInsight/ailang/actions/workflows/ci.yml)
 
