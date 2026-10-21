@@ -86,8 +86,11 @@ Three things are **not** verified here, and the reader deserves to know:
 - **CI and the installed package.** `.github/workflows/ci.yml` runs the
   selftest, the `.ai` suites, the formatter check, the governance commands and
   the demo on Ubuntu and Windows across Python 3.10, 3.12 and 3.13 - all six
-  cells green. `pip install .` is unverified because the build environment had
-  no network. After installing, run `ailang selftest` - it takes seconds.
+  cells green. `pip install .` from a clone installs and imports cleanly;
+  `ailang` is not on PyPI yet, so use the clone or the single file. Run
+  `ailang selftest` from a clone: the checks read `pyproject.toml`,
+  `README.md` and the examples next to `ailang.py`, so an installed copy
+  reports those as failures.
 - **A real terminal.** `ailang shell` decodes `msvcrt`/`termios` keys; the
   editor logic is tested, the hardware path is not.
 
