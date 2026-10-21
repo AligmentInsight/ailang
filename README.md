@@ -1,5 +1,7 @@
 # Alignment Family
 
+[![ci](https://github.com/AligmentInsight/ailang/actions/workflows/ci.yml/badge.svg)](https://github.com/AligmentInsight/ailang/actions/workflows/ci.yml)
+
 > Home of Aligment Insight — a programming language where every value is an
 > AI agent.
 
@@ -81,9 +83,11 @@ Three things are **not** verified here, and the reader deserves to know:
   dialects against local stub servers - request shape, headers, usage,
   accounting and SSE - but the vendors themselves are untested against this
   code.
-- **CI and the installed package.** `.github/workflows/ci.yml` exists and has
-  not run yet; `pip install .` is unverified because the environment has no
-  network. After installing, run `ailang selftest` - it takes seconds.
+- **CI and the installed package.** `.github/workflows/ci.yml` runs the
+  selftest, the `.ai` suites, the formatter check, the governance commands and
+  the demo on Ubuntu and Windows across Python 3.10, 3.12 and 3.13 - all six
+  cells green. `pip install .` is unverified because the build environment had
+  no network. After installing, run `ailang selftest` - it takes seconds.
 - **A real terminal.** `ailang shell` decodes `msvcrt`/`termios` keys; the
   editor logic is tested, the hardware path is not.
 
