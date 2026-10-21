@@ -8211,11 +8211,20 @@ def selftest(_args=None) -> int:
                 assert diag.code in ERROR_CODES, diag.code
 
     def t_version_consistency():
-        import tomllib
         root = Path(__file__).resolve().parent
-        meta = tomllib.loads((root / "pyproject.toml").read_text(
-            encoding="utf-8"))
-        stated = meta["project"]["version"]
+        text = (root / "pyproject.toml").read_text(encoding="utf-8")
+        try:
+            import tomllib
+        except ImportError:                      # Python 3.10 has no tomllib
+            tomllib = None
+        if tomllib is not None:
+            stated = tomllib.loads(text)["project"]["version"]
+        else:                                    # one key: read it directly
+            project = text.split("[project]", 1)[1]
+            found = re.search(r'^version\s*=\s*"([^"]+)"',
+                              project, re.MULTILINE)
+            assert found, "pyproject.toml: [project] has no version"
+            stated = found.group(1)
         assert stated == __version__, (stated, __version__)
         changelog = (root / "CHANGELOG.md").read_text(encoding="utf-8")
         assert f"## [{__version__}]" in changelog, __version__
