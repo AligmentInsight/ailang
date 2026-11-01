@@ -19,6 +19,8 @@ no spend.
 compiler, shell, auditor and test suite — and `--live` is the same
 language against real models.
 
+Read the story behind the language: ["I Built a Programming Language Where Every Value Is an AI Agent"](https://dev.to/aligmentinsight/i-built-a-programming-language-where-every-value-is-an-ai-agent-4lpm)
+
 The Family today is the language and its household: the AI-lang shell, the
 compiler with its AIL diagnostics and program images, the journal that
 records a run and replays it, the audit pass that folds flow, payroll and
