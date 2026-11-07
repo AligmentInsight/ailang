@@ -5,6 +5,10 @@
 > Home of Aligment Insight — a programming language where every value is an
 > AI agent.
 
+> **Status:** solo experimental project, currently on hiatus — not under
+> active development. Nothing is broken: everything below runs offline in
+> mock mode, and the selftest stays green (231/231).
+
 **Aligment Insight** is a programming language for *organizations of AI
 agents*. Schemas are job descriptions, `is_a` is a qualification, `budget`
 is a wage, `judge` is a supervisor, gates are quality control and `payroll`
@@ -109,7 +113,9 @@ and the code catalogue.
 ## Quickstart
 
 ```bash
-pip install ailang
+git clone https://github.com/AligmentInsight/ailang.git
+cd ailang
+pip install .                  # not on PyPI yet - install from the clone
 ailang init myorg              # a runnable project: main.ai, lib.ai, a test
 cd myorg && ailang run main.ai # one program, offline, $0
 ailang demo                    # offline demo, prints the Pitch artifact
@@ -451,27 +457,6 @@ crowd = "topic" >> (one || two)
 checked = "topic" >> (one || two) >> qa? one.v >= 0 and two.v >= 0
 pick = if crowd.one.v >= 0 { "ok" } else { "bad" }
 ```
-
-## Support the Family
-
-Aligment Insight costs $0 to try: mock mode runs the whole language
-offline, no keys, no spend. If it saved you an API bill or a week
-of plumbing — send back a percent of the savings.
-
-Bitcoin (native SegWit):
-![Bitcoin](donate/donate-btc.png)
-`bc1qgpa4rarq6928lypdr8mhv5nzwzqnrdpyg96w3u`
-
-Ethereum / USDT (ERC-20):
-![Ethereum](donate/donate-eth.png)
-`0xa2bEf6eD2AeF47fd7D11Deb675fAEF96c2c9a18d`
-
-Solana / USDT (SPL):
-![Solana](donate/donate-sol.png)
-`J9RCBpkpKAJg5zk1zLfW57JFHEwmH4HQcKXtDiYLgP8S`
-
-These are the only official addresses. They live in this repository
-and nowhere else — treat any other copy as fake.
 
 ## Errors
 
